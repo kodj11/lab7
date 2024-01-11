@@ -1,42 +1,30 @@
-#include <cstdio>
-#include "main.h"
-#include "geometry.h"
-extern "C" {
-#include "time.h"
+#include "matrix.h"
+#include <iostream>
 
-#include "stdlib.h"
-#include "gfx.h"
-}
+int main(void) {
 
-FILE _fileScreen;
+	Matrix matrix(3, 3);
+	
+	std::cout << "Matrix(" << matrix.getCols() << "," << matrix.getRows() << ")" << std::endl;
+	std::cout << "Enter elements: " << std::endl;
+	std::cin >> matrix;
+	std::cout << "Yout matrix: " << std::endl << matrix;
 
-int main(int argc, char_ argv[]) {
-	srand(time(NULL));
-
-	int N;
-	if (argc == 1)
-		N = rand() % 51;
-	else
-
-		N = atoi(argv[1]);
-	Circle _P = new Circle[N];
-	fileScreen = fopen("screen.txt", "w");
-	for (int i = 0; i < N; i++) {
-		double r = (Width <= Height) ? Width / 50. : Height / 50.;
-		double x = r + (Width - 2_r) * rand() / RAND_MAX;
-		double y = r + (Height - 2_r) * rand() / RAND_MAX;
-		P[i].Set(x, y, r, rand() % 0x1000000);
-		P[i].Save();
-	}
-	fclose(fileScreen);
-	try {
-		gfx_open(Width, Height, "screen");
-		for (int i = 0; i < N; i++) {
-
-			P[i].Show();
-		}
-		gfx_wait();
-	}
-	catch (...) {}
-	return 0;
+	QMatrix	qmatrix(matrix);
+	QMatrix	qmatrix2(matrix);
+	QMatrix	qmatrix3(matrix);
+	std::cout << "QMatrix from Matrix: " << std::endl << qmatrix;
+	QMatrix inverse = qmatrix3.inverse();
+	std::cout << "Inverse QMatrix: " << std::endl << inverse << std::endl;
+	//qmatrix = qmatrix * inverse;
+	//std::cout << "QMatrix * Inverse_QMatrix: " << std::endl << qmatrix << std::endl;
+	std::cout << "Determinant QMatrix = " << qmatrix.determinant() << std::endl;
+	qmatrix2 = qmatrix.transpose();
+	std::cout << "Transpose QMatrix = " << std::endl << qmatrix2 << std::endl;
+	qmatrix = qmatrix * 5.1;
+	std::cout << "QMatrix * 5.1: " << std::endl << qmatrix << std::endl;
+	qmatrix = qmatrix * matrix;
+	std::cout << "QMatrix * 5.1 * matrix: " << std::endl << qmatrix << std::endl;
+	
+	return 000;
 }
