@@ -1,30 +1,26 @@
-#include "matrix.h"
-#include <iostream>
+#include "train.cpp"
 
-int main(void) {
+int main() {
+    // Сидящий вагон без верхних мест
+    Sitting sc(10, 0, 5, 0, false);
+    // Есть все виды мест
+    Platzkart pc(6, 6, 3, 3, false);
+    // нет боковых мест
+    Coupe cc(6, 6, 0, 0, true);
+    // нет боковых и верхних мест
+    SV svc(6, 0, 0, 0, true);
 
-	Matrix matrix(3, 3);
-	
-	std::cout << "Matrix(" << matrix.getCols() << "," << matrix.getRows() << ")" << std::endl;
-	std::cout << "Enter elements: " << std::endl;
-	std::cin >> matrix;
-	std::cout << "Yout matrix: " << std::endl << matrix;
+    PassengerTrain train;
+    train.add(&sc);
+    train.add(&pc);
+    train.add(&cc);
+    train.add(&svc);
 
-	QMatrix	qmatrix(matrix);
-	QMatrix	qmatrix2(matrix);
-	QMatrix	qmatrix3(matrix);
-	std::cout << "QMatrix from Matrix: " << std::endl << qmatrix;
-	QMatrix inverse = qmatrix3.inverse();
-	std::cout << "Inverse QMatrix: " << std::endl << inverse << std::endl;
-	//qmatrix = qmatrix * inverse;
-	//std::cout << "QMatrix * Inverse_QMatrix: " << std::endl << qmatrix << std::endl;
-	std::cout << "Determinant QMatrix = " << qmatrix.determinant() << std::endl;
-	qmatrix2 = qmatrix.transpose();
-	std::cout << "Transpose QMatrix = " << std::endl << qmatrix2 << std::endl;
-	qmatrix = qmatrix * 5.1;
-	std::cout << "QMatrix * 5.1: " << std::endl << qmatrix << std::endl;
-	qmatrix = qmatrix * matrix;
-	std::cout << "QMatrix * 5.1 * matrix: " << std::endl << qmatrix << std::endl;
-	
-	return 000;
+    double profit = train.getTotalProfit();
+    std::cout << "Профит от сидящего вагона: " << sc.getProfit() << std::endl;
+    std::cout << "Профит от плацкартного вагона: " << pc.getProfit() << std::endl;
+    std::cout << "Профит от купе: " << cc.getProfit() << std::endl;
+    std::cout << "Профит от СВ: " << svc.getProfit() << std::endl;
+    std::cout << "Профит от рейса: " << profit << std::endl;
+    return 0;
 }
